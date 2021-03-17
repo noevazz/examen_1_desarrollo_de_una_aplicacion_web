@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen 1</title>
+</head>
+<body>
+    
+    
+    <script src="./web_storage_code.js"></script>
+    <script>
+        //añadir un virus
+        add_virus(name="COVID19",
+            img_url = "https://www.ejemplo de link bla bla",
+            biography = "Se trata del SARS-COV2 bla bla bla",
+            origin = "China");
+        // añadir otro virus
+        // solo name es requerido los demas tienenn "" por defecto:
+        console.log(add_virus(name="h1n1", origin = "China"));
+
+        // Obtener todos los virus: 
+        console.log("Obtener todos los virus: ", get_viruses());
+        // Obtener todos los virus (solo nombres): 
+        console.log("Obtener todos los virus (solo nombres): ", get_viruses_only_names());
+        // Obtener la CANTIDAD de virus: 
+        console.log("Obtener la CANTIDAD de virus: ", get_viruses().length);
+
+        // editar un virus:
+        // solo el nombre es requerido
+        // todos los argumentos posibles son:
+        // name, img_url, biography, origin
+        console.log(update_virus("h1n1", img_url="link de la imagen"));
+        
+        // Obtener todos los virus: 
+        console.log("Obtener todos los virus: ", get_viruses());
+
+        // eliminar un virus:
+        console.log(delete_virus("h1n1"));
+
+        // Obtener todos los virus: 
+        console.log("Obtener todos los virus: ", get_viruses());
+
+    </script>
+</body>
+</html>
