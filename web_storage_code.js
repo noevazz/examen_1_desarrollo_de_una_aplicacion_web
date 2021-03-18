@@ -66,7 +66,7 @@ if (typeof(Storage) !== "undefined") {
                 update_this_virus["origin"] = origin;
             }
             localStorage.setItem(name, JSON.stringify( update_this_virus));
-            return [0, name + " Has been succesfully updated"]
+            return [0, name + " Se han guardado los cambios"]
         }
         else {
             return [-2, "Attempt to update '" +name+ "' but it doesn't exists"]

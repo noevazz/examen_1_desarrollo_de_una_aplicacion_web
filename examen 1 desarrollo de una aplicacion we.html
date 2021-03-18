@@ -89,7 +89,7 @@
             cambiar de nuevo el botón para que diga Nuevo.
             
             <li class="list-group-item list-group-item-action">
-            II. El botón de Editar te permite al presionarlo poner en edición el registro y
+            ✅ II. El botón de Editar te permite al presionarlo poner en edición el registro y
             cambiar el botón de Editar a Guardar, si presionas el botón de edición cuando
             esta en el modo de Guardar debe hacer el cambio en el registro que se esta
             editando, y regresar el botón a la vista de Editar, claro poniendo todos los
@@ -193,6 +193,7 @@
         const biography_input = document.getElementById("biography_input");
         const origin_input = document.getElementById("origin_input");
         const new_virus_and_save = document.getElementById("new_virus_and_save");
+        const delete_button = document.getElementById("edit");
         var current_virus_name = "";
         var current_virus_index = 0;
 
@@ -203,6 +204,8 @@
                 flag_status_new_virus_and_save = "save";
                 new_virus_and_save.innerHTML  = "Guardar";
 
+                delete_button.innerHTML = "Edit";
+
                 name_input.value = "";
                 img_url_input.value = "";
                 biography_input.value = "";
@@ -210,27 +213,33 @@
                 set_edition_mode(true, true);
             }
             else {
-                flag_status_new_virus_and_save = "new";
-                new_virus_and_save.innerHTML  = "Nuevo";
+                
                 attempt_to_add = $add_virus(name_input.value, img_url_input.value, biography_input.value, origin_input.value);
                 console.log(attempt_to_add);
                 if (attempt_to_add[0] == -1) { // already exist     
                     name_input.value = "";
                     alert(attempt_to_add[1]);
+                    new_virus_and_save.innerHTML  = "Nuevo";
+                    flag_status_new_virus_and_save = "new"
+                    go_to_first();
                 }
                 if (attempt_to_add[0] == -2) { // you need to pass the name at least    
                     alert(attempt_to_add[1]);
+                    new_virus_and_save.innerHTML  = "Nuevo";
+                    flag_status_new_virus_and_save = "new"
+                    go_to_first();
                 }
                 if (attempt_to_add[0] == 0) { // success   
+                    flag_status_new_virus_and_save = "new";
+                    new_virus_and_save.innerHTML  = "Nuevo";
                     alert(attempt_to_add[1]);
                     var viruses_length = $get_viruses_only_names().length;
                     var last_virus = $get_viruses()[viruses_length-1];
                     set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
                     update_ruleta(viruses_length);
                     set_edition_mode(false, false);
-                    current_virus_name = last_virus["name"];
-                    current_virus_index = viruses_length -1;
                 }
+                
             }
         }
         function set_edition_mode(mode, mode_for_name=false){
@@ -259,6 +268,7 @@
                 set_values_in_inputs("", "", "", "")
                 return;
             }
+            
             var last_virus = $get_viruses()[0];
             set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
             set_edition_mode(false, false);
@@ -274,6 +284,9 @@
                 update_ruleta(0);
                 return;
             }
+            if (current_virus_index == $get_viruses_only_names().length-1) {
+                alert("Ya estas al final");
+            }
             var last_virus = $get_viruses()[viruses_length-1];
             set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
             set_edition_mode(false, false);
@@ -284,8 +297,12 @@
 
         function go_to_next() {
             var viruses_length = $get_viruses_only_names().length;
-            if (viruses_length == 0 || current_virus_index > viruses_length-2)
+            if (viruses_length == 0)
                 return;
+            if (current_virus_index == $get_viruses_only_names().length-1) {
+                alert("Ya estas al final");
+                return;
+            }
             current_virus_index++;
             var last_virus = $get_viruses()[current_virus_index];
             current_virus_name = last_virus["name"];
@@ -296,8 +313,12 @@
 
         function go_to_previous() {
             var viruses_length = $get_viruses_only_names().length;
-            if (viruses_length == 0 || current_virus_index < 1)
+            if (viruses_length == 0)
                 return;
+            if (current_virus_index == 0) {
+                alert("Ya estas al inicio");
+                return;
+            }
             current_virus_index--;
             var last_virus = $get_viruses()[current_virus_index];
             current_virus_name = last_virus["name"];
@@ -331,6 +352,27 @@
             }
             console.log($get_viruses())
 
+        }
+
+        var flag_edit_virus = "edit";
+        function edit_current_virus(){
+            if (flag_status_new_virus_and_save == "save"){
+                alert("Ups!, estas editando algo");
+                return;
+            }
+            if (flag_edit_virus == "edit") {
+                flag_edit_virus = "save";
+                set_edition_mode(true, false)
+                delete_button.innerHTML = "Guardar";
+            }
+            else {
+                var r = $update_virus(current_virus_name, img_url_input.value, biography_input.value, origin_input.value)
+                alert(r[1]);
+                set_edition_mode(false, false)
+                flag_edit_virus = "edit";
+                delete_button.innerHTML = "Editar";
+
+            }
         }
         
         if ($get_viruses_only_names().length > 0) {
