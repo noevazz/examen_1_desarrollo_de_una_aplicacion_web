@@ -34,7 +34,7 @@
             <br> <br>
             <button type="button" class="btn btn-outline-dark mb-1" id="new_virus_and_save" onclick="new_virus_and_save_action()">Nuevo</button>
             <button type="button" class="btn btn-outline-dark mb-1" id="edit" onclick="edit_current_virus()">Editar</button>
-            <button type="button" class="btn btn-outline-dark mb-1" id="delete" onclick="delete_virus()">Eliminar</button>
+            <button type="button" class="btn btn-outline-dark mb-1" id="delete" onclick="delete_current_virus()">Eliminar</button>
             <br>
             <button type="button" class="btn btn-outline-dark mb-1" id="first" onclick="go_to_first()">Primero</button>
             <button type="button" class="btn btn-outline-dark mb-1" id="next" onclick="go_to_next()">Siguiente</button>
@@ -97,7 +97,7 @@
             </li>
 
             <li class="list-group-item list-group-item-action">
-            III. El botón de Eliminar elimina el registro donde estas posicionado, el que se
+            ✅ III. El botón de Eliminar elimina el registro donde estas posicionado, el que se
             muestra en pantalla.
             </li>
 
@@ -140,52 +140,52 @@
     <script>
         
         
-        for (v of get_viruses_only_names()){
+        for (v of $get_viruses_only_names()){
             console.log(delete_virus(v));
             console.log("nombre ", v)
         }
-        add_virus(name="Ébola",
+        $add_virus(name="Ébola",
 		img_url = "https://eacnur.org/files/styles/two_columns_photo_info/public/paragraph/two_columns_foto_info/nino_africano_de_burundi_2_ebola.jpg?itok=odgmGJoT",
 		biography ="El ébola no se transmite por el aire, sino a través del contacto con animales infectados o por el contacto de fluidos corporales de personas.",
 		origin = "África Occidental");
 
-		add_virus(name = "Malaria",
+		$add_virus(name = "Malaria",
 		img_url = "https://eacnur.org/files/styles/two_columns_photo_info/public/paragraph/two_columns_foto_info/malaria.jpg?itok=5Z0ih-at",
 		biography ="Se transmite por la picadura del mosquito Anopheles.",
 		origin = "África subsahariana");
 
-		add_virus(name = "Dengue",
+		$add_virus(name = "Dengue",
 		img_url = "https://eacnur.org/files/styles/two_columns_photo_info/public/paragraph/two_columns_foto_info/malaria.jpg?itok=5Z0ih-at",
 		biography ="Se trata de una infección vírica transmitida por mosquitos que se presenta en los climas tropicales y subtropicales de todo el planeta, sobre todo en las zonas urbanas y semiurbanas.",
 		origin = "África subsahariana");
 
-		add_virus(name = "Sarampión",
+		$add_virus(name = "Sarampión",
 		img_url = "https://eacnur.org/files/styles/two_columns_photo_info/public/paragraph/two_columns_foto_info/rf187423_077961_web_0.jpg?itok=PwAa9GjT",
 		biography ="Enfermedad infecciosa y contagiosa, causada por un virus, que se caracteriza por la aparición de pequeñas manchas rojas en la piel, fiebre alta y síntomas catarrales; generalmente, se padece durante la infancia.",
 		origin ="Colima");
 
-		add_virus(name = "Sarampión2",
+		$add_virus(name = "Sarampión2",
 		img_url = "https://eacnur.org/files/styles/two_columns_photo_info/public/paragraph/two_columns_foto_info/rf187423_077961_web_0.jpg?itok=PwAa9GjT",
 		biography = "Enfermedad infecciosa y contagiosa, causada por un virus, que se caracteriza por la aparición de pequeñas manchas rojas en la piel, fiebre alta y síntomas catarrales; generalmente, se padece durante la infancia.",
 		origin = "Colima");
 
-		add_virus(name = "SIDA",
+		$add_virus(name = "SIDA",
 		img_url = "https://eacnur.org/files/styles/two_columns_photo_info/public/paragraph/two_columns_foto_info/vih.jpg?itok=gZSxkp66",
 		biography = "El virus se transmite por vía sexual, a través de transfusiones de sangre contaminada, por el uso compartido de materiales quirúrgicos contaminados, o de madre a hijo durante el embarazo, el parto o la lactancia.",
 		origin = "África");
 
-		add_virus(name = "COVID-19",
+		$add_virus(name = "COVID-19",
 		img_url = "https://www.coyoacan.cdmx.gob.mx/imgcovid/covid4.jpg",
 		biography = "El coronavirus es un grupo de virus que causan enfermedades que van desde el resfriado común hasta enfermedades más graves.",
 		origin = "Wuhan, en China");
 
 
         // Obtener todos los virus: 
-        console.log("Obtener todos los virus: ", get_viruses());
+        console.log("Obtener todos los virus: ", $get_viruses());
         // Obtener todos los virus (solo nombres): 
-        console.log("Obtener todos los virus (solo nombres): ", get_viruses_only_names());
+        console.log("Obtener todos los virus (solo nombres): ", $get_viruses_only_names());
         // Obtener la CANTIDAD de virus: 
-        console.log("Obtener la CANTIDAD de virus: ", get_viruses().length);
+        console.log("Obtener la CANTIDAD de virus: ", $get_viruses().length);
 
         const ruleta = document.getElementById("ruleta");
         const name_input = document.getElementById("name_input");
@@ -194,7 +194,7 @@
         const origin_input = document.getElementById("origin_input");
         const new_virus_and_save = document.getElementById("new_virus_and_save");
         var current_virus_name = "";
-        var current_virus_index = "";
+        var current_virus_index = 0;
 
         var flag_status_new_virus_and_save = "new";
 
@@ -212,7 +212,7 @@
             else {
                 flag_status_new_virus_and_save = "new";
                 new_virus_and_save.innerHTML  = "Nuevo";
-                attempt_to_add = add_virus(name_input.value, img_url_input.value, biography_input.value, origin_input.value);
+                attempt_to_add = $add_virus(name_input.value, img_url_input.value, biography_input.value, origin_input.value);
                 console.log(attempt_to_add);
                 if (attempt_to_add[0] == -1) { // already exist     
                     name_input.value = "";
@@ -223,8 +223,8 @@
                 }
                 if (attempt_to_add[0] == 0) { // success   
                     alert(attempt_to_add[1]);
-                    var viruses_length = get_viruses_only_names().length;
-                    var last_virus = get_viruses()[viruses_length-1];
+                    var viruses_length = $get_viruses_only_names().length;
+                    var last_virus = $get_viruses()[viruses_length-1];
                     set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
                     update_ruleta(viruses_length);
                     set_edition_mode(false, false);
@@ -241,8 +241,9 @@
             biography_input.disabled = mode;
             origin_input.disabled = mode;
         }
+
         function update_ruleta(position){
-            ruleta.innerHTML = position + " de " + get_viruses_only_names().length;
+            ruleta.innerHTML = position + " de " + $get_viruses_only_names().length;
         }
 
         function set_values_in_inputs(value_for_name="", value_for_img_url="", value_for_biography="", value_for_origin="") {
@@ -253,66 +254,86 @@
         }
 
         function go_to_first() {
-            var viruses_length = get_viruses_only_names().length;
-            if (viruses_length == 0)
+            var viruses_length = $get_viruses_only_names().length;
+            if (viruses_length == 0) {
+                set_values_in_inputs("", "", "", "")
                 return;
-            if (viruses_length > 0) {
-                var last_virus = get_viruses()[0];
-                set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
-                update_ruleta("1");
-                set_edition_mode(false, false);
-                current_virus_name = last_virus["name"];
-                current_virus_index = 0;
             }
+            var last_virus = $get_viruses()[0];
+            set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
+            set_edition_mode(false, false);
+            current_virus_name = last_virus["name"];
+            current_virus_index = 0;
+            update_ruleta(1);
         }
 
         function go_to_last() {
-            var viruses_length = get_viruses_only_names().length;
-            if (viruses_length == 0)
+            var viruses_length = $get_viruses_only_names().length;
+            if (viruses_length == 0) {
+                set_values_in_inputs("", "", "", "")
+                update_ruleta(0);
                 return;
-            if (viruses_length > 0) {
-                var last_virus = get_viruses()[viruses_length-1];
-                set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
-                update_ruleta(viruses_length);
-                set_edition_mode(false, false);
-                current_virus_name = last_virus["name"];
-                current_virus_index = viruses_length -1;
             }
+            var last_virus = $get_viruses()[viruses_length-1];
+            set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
+            set_edition_mode(false, false);
+            current_virus_name = last_virus["name"];
+            current_virus_index = viruses_length -1;
+            update_ruleta(viruses_length);
         }
 
         function go_to_next() {
-            var viruses_length = get_viruses_only_names().length;
-            if (viruses_length == 0)
+            var viruses_length = $get_viruses_only_names().length;
+            if (viruses_length == 0 || current_virus_index > viruses_length-2)
                 return;
-            if (current_virus_index < viruses_length-1) {
-                current_virus_index++;
-                if (viruses_length > 0) {
-                    var last_virus = get_viruses()[current_virus_index];
-                    current_virus_name = last_virus["name"];
-                    set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
-                    update_ruleta(viruses_length);
-                    set_edition_mode(false, false);
-                }
-            }
+            current_virus_index++;
+            var last_virus = $get_viruses()[current_virus_index];
+            current_virus_name = last_virus["name"];
+            set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
+            set_edition_mode(false, false);
+            update_ruleta(current_virus_index+1);
         }
 
         function go_to_previous() {
-            var viruses_length = get_viruses_only_names().length;
-            if (viruses_length == 0)
+            var viruses_length = $get_viruses_only_names().length;
+            if (viruses_length == 0 || current_virus_index < 1)
                 return;
-            if (current_virus_index > 0 ) {
-                current_virus_index--;
-                if (viruses_length > 0) {
-                    var last_virus = get_viruses()[current_virus_index];
-                    current_virus_name = last_virus["name"];
-                    set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
-                    update_ruleta(viruses_length);
-                    set_edition_mode(false, false);
-                }
+            current_virus_index--;
+            var last_virus = $get_viruses()[current_virus_index];
+            current_virus_name = last_virus["name"];
+            set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
+            set_edition_mode(false, false);
+            update_ruleta(current_virus_index+1);
+        }
+
+        function delete_current_virus(){
+            if ($get_viruses_only_names().length == 0) {
+                alert("Ya no hay virus en la base de datos");
+                update_ruleta(0);
+                current_virus_index = 0;
+                current_virus_name = "";
+                return;
             }
+            current_virus_name = $get_viruses_only_names()[current_virus_index];
+            current_virus_index--;
+            if (current_virus_index < 0) {
+                current_virus_index = 0;
+            }
+            
+            $delete_virus(current_virus_name);
+            go_to_first();
+            if ($get_viruses_only_names().length == 0) {
+                alert("Ya no hay virus en la base de datos");
+                update_ruleta(0);
+                current_virus_index = 0;
+                current_virus_name = "";
+                return;
+            }
+            console.log($get_viruses())
+
         }
         
-        if (get_viruses_only_names().length > 0) {
+        if ($get_viruses_only_names().length > 0) {
             go_to_first();
         }
         else {
