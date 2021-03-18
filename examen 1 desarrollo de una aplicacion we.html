@@ -52,29 +52,8 @@
                   <a id="origin_search" class="dropdown-item" href="#" onclick="set_field(this)">Origen</a>
                 </div>
             </div>
-            <script>
-                function set_field(e) {
-                    console.log(e.id);
-                    var update_search_field_with_this = "";
-                    switch (e.id){
-                        case "name_search": 
-                            update_search_field_with_this = "Nombre";
-                            break;
-                        case "img_url_search": 
-                            update_search_field_with_this = "URL";
-                            break;
-                        case "biography_search": 
-                            update_search_field_with_this = "Biografia";
-                            break;
-                        case "origin_search": 
-                            update_search_field_with_this = "Origen";
-                            break;
-                    }
-                    document.getElementById("search_field").innerHTML = update_search_field_with_this
-                }
-            </script>
             <input class="" type="text" id="search_text">
-            <button type="button" class="btn btn-outline-dark mb-1" id="search_button">Buscar</button>
+            <button type="button" class="btn btn-outline-dark mb-1" id="search_button" onclick="search_this()">Buscar</button>
 
         </div>
     </div>
@@ -120,7 +99,7 @@
             </li>
 
             <li class="list-group-item list-group-item-action">
-            VIII. En el botón de Buscar hay que seleccionar de la lista en cual campo se desea
+            ✅ VIII. En el botón de Buscar hay que seleccionar de la lista en cual campo se desea
             buscar, siguiente introducir el texto a buscar en ese campo, si lo encuentra
             posicionarse en el primero que encontró con ese contenido encontrado en ese
             campo, si no indicar que no se encontró información alguna.
@@ -194,6 +173,8 @@
         const origin_input = document.getElementById("origin_input");
         const new_virus_and_save = document.getElementById("new_virus_and_save");
         const delete_button = document.getElementById("edit");
+        const search_button = document.getElementById("search_button");
+        const search_text = document.getElementById("search_text");
         var current_virus_name = "";
         var current_virus_index = 0;
 
@@ -373,6 +354,54 @@
                 delete_button.innerHTML = "Editar";
 
             }
+        }
+        
+        var search_option = "";
+        function set_field(e) {
+            console.log(e.id);
+            var update_search_field_with_this = "";
+            switch (e.id){
+                case "name_search": 
+                    update_search_field_with_this = "Nombre";
+                    search_option = "name";
+                    break;
+                case "img_url_search": 
+                    update_search_field_with_this = "URL";
+                    search_option = "img_url";
+                    break;
+                case "biography_search": 
+                    update_search_field_with_this = "Biografia";
+                    search_option = "biography";
+                    break;
+                case "origin_search": 
+                    update_search_field_with_this = "Origen";
+                    search_option = "origin";
+                    break;
+            }
+            document.getElementById("search_field").innerHTML = update_search_field_with_this
+        }
+
+        function search_this() {
+            if ($get_viruses_only_names().length == 0) {
+                alert("Ups, no hay virus en la base de datos para buscar");
+                return;
+            }
+            if (search_option == "") {
+                alert ("Selecciona una opción")
+                return;
+            }
+            var counter_v = 0
+            for (v of $get_viruses()){
+                if (v[search_option] == search_text.value){
+                    current_virus_index = counter_v;
+                    current_virus_name = v["name"];
+                    set_values_in_inputs(v["name"], v["img_url"], v["biography"], v["origin"]);
+                    alert("Yei!, se encontro un resultado");
+                    return;
+                }
+                counter_v++;
+            }
+            alert("No se encontro nada")
         }
         
         if ($get_viruses_only_names().length > 0) {
