@@ -5,7 +5,7 @@ if (typeof(Storage) !== "undefined") {
     localStorage.setItem("viruses_only_names", "[]");
 
 
-    function add_virus(name, img_url="", biography="", origin=""){
+    function $add_virus(name, img_url="", biography="", origin=""){
         var viruses_only_names = JSON.parse(window.localStorage.getItem("viruses_only_names"));
 		
 		if (viruses_only_names.includes(name)) {
@@ -19,7 +19,7 @@ if (typeof(Storage) !== "undefined") {
         localStorage.setItem("viruses_only_names", JSON.stringify(viruses_only_names));
         return [0, name + " se ha agregado"];
     }
-    function get_viruses() {
+    function $get_viruses() {
         var viruses_only_names = JSON.parse(window.localStorage.getItem("viruses_only_names"));
         var viruses_full = [];
         for (virus of viruses_only_names){
@@ -29,7 +29,7 @@ if (typeof(Storage) !== "undefined") {
         }
         return viruses_full;
     }
-    function delete_virus(name) {
+    function $delete_virus(name) {
         if (name == undefined) {
             return [-1, "Attempt to delete '" +name+ " not possible: You need to pass the virus name"]
         }
@@ -49,7 +49,7 @@ if (typeof(Storage) !== "undefined") {
         }   
     }
 
-    function update_virus(name, img_url, biography, origin) {
+    function $update_virus(name, img_url, biography, origin) {
         if (name == undefined) {
             return [-1, "Attempt to update '" +name+ " not possible: You need to pass the virus name"]
         }
@@ -73,7 +73,7 @@ if (typeof(Storage) !== "undefined") {
         }   
     }
 
-    function get_viruses_only_names() {
+    function $get_viruses_only_names() {
         return JSON.parse(window.localStorage.getItem("viruses_only_names"));
     }
 }
