@@ -226,7 +226,7 @@
         const image = document.getElementById("image");
 
         var current_virus_name = "";
-        var current_virus_index = 0;
+        var current_virus_index = -1;
 
         var flag_status_new_virus_and_save = "new";
 
@@ -296,12 +296,21 @@
         }
 
         function go_to_first() {
+            flag_edit_virus = "edit";
+            delete_button.innerHTML = "Editar";
+            
+            flag_status_new_virus_and_save = "new";
+            new_virus_and_save.innerHTML  = "Nuevo"
+
             var viruses_length = $get_viruses_only_names().length;
             if (viruses_length == 0) {
                 set_values_in_inputs("", "", "", "")
                 return;
             }
-            
+            if (current_virus_index == 0) {
+                alert("Ya estas al inicio");
+            }
+
             var first_virus = $get_viruses()[0];
             set_values_in_inputs(first_virus["name"], first_virus["img_url"], first_virus["biography"], first_virus["origin"]);
             set_edition_mode(false, false);
@@ -312,6 +321,11 @@
         }
 
         function go_to_last() {
+            flag_edit_virus = "edit";
+            delete_button.innerHTML = "Editar";
+
+            flag_status_new_virus_and_save = "new";
+            new_virus_and_save.innerHTML  = "Nuevo"
             var viruses_length = $get_viruses_only_names().length;
             if (viruses_length == 0) {
                 set_values_in_inputs("", "", "", "")
@@ -321,6 +335,7 @@
             if (current_virus_index == $get_viruses_only_names().length-1) {
                 alert("Ya estas al final");
             }
+
             var last_virus = $get_viruses()[viruses_length-1];
             set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
             set_edition_mode(false, false);
@@ -331,14 +346,18 @@
         }
 
         function go_to_next() {
+            flag_edit_virus = "edit";
+            delete_button.innerHTML = "Editar";
+
+            flag_status_new_virus_and_save = "new";
+            new_virus_and_save.innerHTML  = "Nuevo";
             var viruses_length = $get_viruses_only_names().length;
             if (viruses_length == 0)
                 return;
-            if (current_virus_index == $get_viruses_only_names().length-1) {
+            if (current_virus_index == $get_viruses_only_names().length-1)
                 alert("Ya estas al final");
-                return;
-            }
-            current_virus_index++;
+            else
+                current_virus_index++;
             var next_virus = $get_viruses()[current_virus_index];
             current_virus_name = next_virus["name"];
             set_values_in_inputs(next_virus["name"], next_virus["img_url"], next_virus["biography"], next_virus["origin"]);
@@ -348,14 +367,18 @@
         }
 
         function go_to_previous() {
+            flag_edit_virus = "edit";
+            delete_button.innerHTML = "Editar";
+
+            flag_status_new_virus_and_save = "new";
+            new_virus_and_save.innerHTML  = "Nuevo";
             var viruses_length = $get_viruses_only_names().length;
             if (viruses_length == 0)
                 return;
-            if (current_virus_index == 0) {
+            if (current_virus_index == 0) 
                 alert("Ya estas al inicio");
-                return;
-            }
-            current_virus_index--;
+            else
+                current_virus_index--;
             var previous_virus = $get_viruses()[current_virus_index];
             current_virus_name = previous_virus["name"];
             set_values_in_inputs(previous_virus["name"], previous_virus["img_url"], previous_virus["biography"], previous_virus["origin"]);
@@ -366,6 +389,12 @@
         }
 
         function delete_current_virus(){
+            flag_edit_virus = "edit";
+            delete_button.innerHTML = "Editar";
+            if (flag_status_new_virus_and_save == "save"){
+                alert("Ups!, estas añadiendo un virus");
+                return;
+            }
             if ($get_viruses_only_names().length == 0) {
                 alert("Ya no hay virus en la base de datos");
                 update_ruleta(0);
@@ -373,6 +402,8 @@
                 current_virus_name = "";
                 return;
             }
+            flag_status_new_virus_and_save = "new";
+            new_virus_and_save.innerHTML  = "Nuevo";
             current_virus_name = $get_viruses_only_names()[current_virus_index];
             current_virus_index--;
             if (current_virus_index < 0) {
@@ -395,7 +426,7 @@
         var flag_edit_virus = "edit";
         function edit_current_virus(){
             if (flag_status_new_virus_and_save == "save"){
-                alert("Ups!, estas editando algo");
+                alert("Ups!, estas añadiendo un virus");
                 return;
             }
             if (flag_edit_virus == "edit") {
@@ -440,6 +471,8 @@
         }
 
         function search_this() {
+            flag_status_new_virus_and_save = "new";
+            new_virus_and_save.innerHTML  = "Nuevo"
             if ($get_viruses_only_names().length == 0) {
                 alert("Ups, no hay virus en la base de datos para buscar");
                 return;
@@ -448,6 +481,7 @@
                 alert ("Selecciona una opción")
                 return;
             }
+                
             var counter_v = 0
             for (v of $get_viruses()){
                 if (v[search_option] == search_text.value){
