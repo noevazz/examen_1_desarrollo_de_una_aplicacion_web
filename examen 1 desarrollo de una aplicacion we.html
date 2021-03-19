@@ -13,48 +13,56 @@
 <body>
 
     <div class="container">
-        <div class="form-group">
-            <h1>Captura de registros</h1>
-            <h2 class="text-center"><strong id="ruleta">0 de 0</strong></h2>
+        <h1>Captura de registros</h1>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    
+                    <h2 class="text-center"><strong id="ruleta">0 de 0</strong></h2>
 
-            <label for="name">Nombre del virus</label> <br>
-            <input class="" type="text" id="name_input">
-            <br>
-            
-            <label for="img_url">URL de la imagen</label> <br>
-            <input class="" type="text" id="img_url_input">
-            <br>
-            
-            <label for="biography">Biografia</label> <br>
-            <input class="" type="text" id="biography_input">
-            <br>
+                    <label for="name">Nombre del virus</label> <br>
+                    <input class="" type="text" id="name_input">
+                    <br>
+                    
+                    <label for="img_url">URL de la imagen</label> <br>
+                    <input class="" type="text" id="img_url_input">
+                    <br>
+                    
+                    <label for="biography">Biografia</label> <br>
+                    <input class="" type="text" id="biography_input">
+                    <br>
 
-            <label for="origin">Origen</label> <br>
-            <input class="" type="text" id="origin_input">
-            <br> <br>
-            <button type="button" class="btn btn-outline-dark mb-1" id="new_virus_and_save" onclick="new_virus_and_save_action()">Nuevo</button>
-            <button type="button" class="btn btn-outline-dark mb-1" id="edit" onclick="edit_current_virus()">Editar</button>
-            <button type="button" class="btn btn-outline-dark mb-1" id="delete" onclick="delete_current_virus()">Eliminar</button>
-            <br>
-            <button type="button" class="btn btn-outline-dark mb-1" id="first" onclick="go_to_first()">Primero</button>
-            <button type="button" class="btn btn-outline-dark mb-1" id="next" onclick="go_to_next()">Siguiente</button>
-            <button type="button" class="btn btn-outline-dark mb-1" id="previous" onclick="go_to_previous()">Anterior</button>
-            <button type="button" class="btn btn-outline-dark mb-1" id="last" onclick="go_to_last()">Último</button>
-            <br>
-            <div class="btn-group">
-                <button id="search_field" type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">
-                Campo
-                </button>
-                <div class="dropdown-menu">
-                  <a id="name_search" class="dropdown-item" href="#" onclick="set_field(this)">Nombre</a>
-                  <a id="img_url_search" class="dropdown-item" href="#" onclick="set_field(this)">URL</a>
-                  <a id="biography_search" class="dropdown-item" href="#" onclick="set_field(this)">Biografia</a>
-                  <a id="origin_search" class="dropdown-item" href="#" onclick="set_field(this)">Origen</a>
+                    <label for="origin">Origen</label> <br>
+                    <input class="" type="text" id="origin_input">
+                    <br> <br>
+                    <button type="button" class="btn btn-outline-dark mb-1" id="new_virus_and_save" onclick="new_virus_and_save_action()">Nuevo</button>
+                    <button type="button" class="btn btn-outline-dark mb-1" id="edit" onclick="edit_current_virus()">Editar</button>
+                    <button type="button" class="btn btn-outline-dark mb-1" id="delete" onclick="delete_current_virus()">Eliminar</button>
+                    <br>
+                    <button type="button" class="btn btn-outline-dark mb-1" id="first" onclick="go_to_first()">Primero</button>
+                    <button type="button" class="btn btn-outline-dark mb-1" id="next" onclick="go_to_next()">Siguiente</button>
+                    <button type="button" class="btn btn-outline-dark mb-1" id="previous" onclick="go_to_previous()">Anterior</button>
+                    <button type="button" class="btn btn-outline-dark mb-1" id="last" onclick="go_to_last()">Último</button>
+                    <br>
+                    <div class="btn-group">
+                        <button id="search_field" type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">
+                        Campo
+                        </button>
+                        <div class="dropdown-menu">
+                        <a id="name_search" class="dropdown-item" href="#" onclick="set_field(this)">Nombre</a>
+                        <a id="img_url_search" class="dropdown-item" href="#" onclick="set_field(this)">URL</a>
+                        <a id="biography_search" class="dropdown-item" href="#" onclick="set_field(this)">Biografia</a>
+                        <a id="origin_search" class="dropdown-item" href="#" onclick="set_field(this)">Origen</a>
+                        </div>
+                    </div>
+                    <input class="" type="text" id="search_text">
+                    <button type="button" class="btn btn-outline-dark mb-1" id="search_button" onclick="search_this()">Buscar</button>
+
                 </div>
             </div>
-            <input class="" type="text" id="search_text">
-            <button type="button" class="btn btn-outline-dark mb-1" id="search_button" onclick="search_this()">Buscar</button>
-
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <img id="image" src="" alt="Imagen no disponible" style="max-height: 200px;">
+            </div>
         </div>
     </div>
     <div class="container">
@@ -123,8 +131,48 @@
             console.log(delete_virus(v));
             console.log("nombre ", v)
         }
+        $add_virus(name="Cólera",
+		img_url = "https://img.playbuzz.com/image/upload/ar_1.3333333333333333,c_crop/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_2.5/v1584801526/ganemwfg1xjsw14e1eww.jpg",
+		biography ="El cólera es una enfermedad infecto-contagiosa intestinal aguda o crónica, provocada por los serotipos O1 y O139 de la bacteria Vibrio cholerae",
+		origin = "Ríos indios Ganges y Brahmaputra");
+
+        $add_virus(name="Gripe de Hong Kong",
+		img_url = "https://static2.abc.es/media/historia/2020/03/05/asia-suecia-kVL--1200x630@abc.jpg",
+		biography ="",
+		origin = "Hong Kong");
+
+        $add_virus(name="Gripe de Rusa",
+		img_url = "https://ichef.bbci.co.uk/news/640/cpsprodpb/1742C/production/_112867259_gettyimages-152237642.jpg",
+		biography ="",
+		origin = "Rusia");
+
+        $add_virus(name="H2N2",
+		img_url = "https://cdni.rt.com/actualidad/public_images/2015.10/article/r/1104/90/jpeg/560d3b2cc4618855198b45bd.jpg",
+		biography ="En febrero de 1957, un nuevo virus de la influenza A (H2N2) apareció en el este de Asia, desencadenando una pandemia Influenza asiática",
+		origin = "Singapur");
+
+        $add_virus(name="Peste antonina",
+		img_url = "https://estaticos-cdn.sport.es/clip/8f9bbbbd-3db2-4166-92b4-74ad9c7d3232_alta-libre-aspect-ratio_default_0.jpg",
+		biography ="",
+		origin = "");
+
+        $add_virus(name="Plaga de Justiniano",
+		img_url = "https://imagenes.elpais.com/resizer/Ed0H6xwxKSuWFWTOaDagen-epuQ=/1500x0/arc-anglerfish-eu-central-1-prod-prisa.s3.amazonaws.com/public/AATWVMDSOL6MNEG47E2EXERAAU.jpg",
+		biography ="",
+		origin = "");
+
+        $add_virus(name="Gripe española",
+		img_url = "https://gacetamedica.com/wp-content/uploads/2020/02/The-Spanish-Influenza.-Emergency-military-hospital-during-influenza-epidemic-Camp-Funston-Kansas-United-States_National-Museum-of-Health-and-Medicine-1-1.jpg",
+		biography ="",
+		origin = "");
+
+        $add_virus(name="Viruela ",
+		img_url = "https://www.lavanguardia.com/files/image_449_220/uploads/2019/06/30/5fa53008f40be.jpeg",
+		biography ="La viruela es una de las enfermedades más mortales que conocen los humanos, y también es la única enfermedad que ha sido erradicada con la vacunación.",
+		origin = "Egipto");
+
         $add_virus(name="Ébola",
-		img_url = "https://eacnur.org/files/styles/two_columns_photo_info/public/paragraph/two_columns_foto_info/nino_africano_de_burundi_2_ebola.jpg?itok=odgmGJoT",
+		img_url = "https://sersaludables.org/wp-content/uploads/2020/02/Cuatro-pa%C3%ADses-de-%C3%81frica-se-protegen-contra-el-%C3%A9bola.jpg",
 		biography ="El ébola no se transmite por el aire, sino a través del contacto con animales infectados o por el contacto de fluidos corporales de personas.",
 		origin = "África Occidental");
 
@@ -134,7 +182,7 @@
 		origin = "África subsahariana");
 
 		$add_virus(name = "Dengue",
-		img_url = "https://eacnur.org/files/styles/two_columns_photo_info/public/paragraph/two_columns_foto_info/malaria.jpg?itok=5Z0ih-at",
+		img_url = "https://1.bp.blogspot.com/-1v435OIpY9k/XcagBcUkg4I/AAAAAAAAHzY/MFjOTomfXOIGhYOUu6ypccTQhOZNiSanwCLcBGAsYHQ/s1600/dengue.jpg",
 		biography ="Se trata de una infección vírica transmitida por mosquitos que se presenta en los climas tropicales y subtropicales de todo el planeta, sobre todo en las zonas urbanas y semiurbanas.",
 		origin = "África subsahariana");
 
@@ -149,7 +197,7 @@
 		origin = "Colima");
 
 		$add_virus(name = "SIDA",
-		img_url = "https://eacnur.org/files/styles/two_columns_photo_info/public/paragraph/two_columns_foto_info/vih.jpg?itok=gZSxkp66",
+		img_url = "https://medicinaysaludpublica.com/wp-content/uploads/2018/11/vih-sida-por-que-no-te-vas-a-contagiar-con-un-beso-y-otros-7-mitos-sobre-el-virus-y-la-enfermedad-1200x919.jpg",
 		biography = "El virus se transmite por vía sexual, a través de transfusiones de sangre contaminada, por el uso compartido de materiales quirúrgicos contaminados, o de madre a hijo durante el embarazo, el parto o la lactancia.",
 		origin = "África");
 
@@ -175,6 +223,8 @@
         const delete_button = document.getElementById("edit");
         const search_button = document.getElementById("search_button");
         const search_text = document.getElementById("search_text");
+        const image = document.getElementById("image");
+
         var current_virus_name = "";
         var current_virus_index = 0;
 
@@ -219,6 +269,7 @@
                     set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
                     update_ruleta(viruses_length);
                     set_edition_mode(false, false);
+                    image.src = ast_virus["img_url"];
                 }
                 
             }
@@ -241,6 +292,7 @@
             img_url_input.value = value_for_img_url;
             biography_input.value = value_for_biography;
             origin_input.value = value_for_origin;
+            image.src = value_for_img_url;
         }
 
         function go_to_first() {
@@ -250,12 +302,13 @@
                 return;
             }
             
-            var last_virus = $get_viruses()[0];
-            set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
+            var first_virus = $get_viruses()[0];
+            set_values_in_inputs(first_virus["name"], first_virus["img_url"], first_virus["biography"], first_virus["origin"]);
             set_edition_mode(false, false);
-            current_virus_name = last_virus["name"];
+            current_virus_name = first_virus["name"];
             current_virus_index = 0;
             update_ruleta(1);
+            image.src = first_virus["img_url"];
         }
 
         function go_to_last() {
@@ -274,6 +327,7 @@
             current_virus_name = last_virus["name"];
             current_virus_index = viruses_length -1;
             update_ruleta(viruses_length);
+            image.src = last_virus["img_url"];
         }
 
         function go_to_next() {
@@ -285,11 +339,12 @@
                 return;
             }
             current_virus_index++;
-            var last_virus = $get_viruses()[current_virus_index];
-            current_virus_name = last_virus["name"];
-            set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
+            var next_virus = $get_viruses()[current_virus_index];
+            current_virus_name = next_virus["name"];
+            set_values_in_inputs(next_virus["name"], next_virus["img_url"], next_virus["biography"], next_virus["origin"]);
             set_edition_mode(false, false);
             update_ruleta(current_virus_index+1);
+            image.src = next_virus["img_url"];
         }
 
         function go_to_previous() {
@@ -301,11 +356,13 @@
                 return;
             }
             current_virus_index--;
-            var last_virus = $get_viruses()[current_virus_index];
-            current_virus_name = last_virus["name"];
-            set_values_in_inputs(last_virus["name"], last_virus["img_url"], last_virus["biography"], last_virus["origin"]);
+            var previous_virus = $get_viruses()[current_virus_index];
+            current_virus_name = previous_virus["name"];
+            set_values_in_inputs(previous_virus["name"], previous_virus["img_url"], previous_virus["biography"], previous_virus["origin"]);
             set_edition_mode(false, false);
             update_ruleta(current_virus_index+1);
+            image.src = previous_virus["img_url"];
+
         }
 
         function delete_current_virus(){
@@ -348,11 +405,12 @@
             }
             else {
                 var r = $update_virus(current_virus_name, img_url_input.value, biography_input.value, origin_input.value)
+                image.src = img_url_input.value;
                 alert(r[1]);
                 set_edition_mode(false, false)
                 flag_edit_virus = "edit";
                 delete_button.innerHTML = "Editar";
-
+                image.src = img_url_input.value;
             }
         }
         
@@ -396,6 +454,7 @@
                     current_virus_index = counter_v;
                     current_virus_name = v["name"];
                     set_values_in_inputs(v["name"], v["img_url"], v["biography"], v["origin"]);
+                    image.src = v["img_url"];
                     alert("Yei!, se encontro un resultado");
                     update_ruleta(counter_v+1)
                     return;
